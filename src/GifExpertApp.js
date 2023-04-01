@@ -18,7 +18,14 @@ export const GifExpertApp = () => {
     return (
     <>
         <h2>GifExpertApp</h2>
-        <AddCategory />
+        {/* En este ejemplo le enviamos al componente AddCategory las property:
+                1-) setCateg, la cual va a ser la funcion (setCategorias) que puede mutar
+                    el estado del arreglo categorias, es decir, insertar, eliminar elementos
+                2-) categ, es opcional pero para que sepamos que podemos enviar el arreglo.
+            Por tanto, en una properti podemos enviar desde datos primitivos hasta arreglos,
+            objetos y funciones.
+        */}
+        <AddCategory setCateg={ setCategorias } categ={categorias}/>
         <hr/>
         {/* <button onClick={ handleAdd }>Agregar</button> */}
         <ol>
