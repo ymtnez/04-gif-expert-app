@@ -3,6 +3,11 @@ import { AddCategory } from './components/AddCategory';
 
 export const GifExpertApp = () => {
     // const categorias = ['One Punch', 'Samurai X', 'Dragon Ball'];
+    /**
+     * Aqui usamos el hook de useState el cual nos permitira a traves de setCategorias
+     * (es una funcion) insertar categorias, o sea, es a traves de setCategorias que
+     * cambiaremos el estado a categorias
+     */
     const [categorias, setCategorias] = useState(['One Punch', 'Samurai X', 'Dragon Ball']);
    
     // const handleAdd = () => {
@@ -25,14 +30,14 @@ export const GifExpertApp = () => {
             Por tanto, en una properti podemos enviar desde datos primitivos hasta arreglos,
             objetos y funciones.
         */}
-        <AddCategory setCateg={ setCategorias } categ={categorias}/>
+        <AddCategory setCateg={ setCategorias } categ={ categorias } />
         <hr/>
         {/* <button onClick={ handleAdd }>Agregar</button> */}
         <ol>
             {
                 /**
                  * NO es buena practica usar el indice del areglo
-                 *  del map para referenciar cada elemento, para
+                 * del map para referenciar cada elemento, para
                  * ello debe ser la clave que venga de la BD.
                  */
                 categorias.map( (categ, index) => {

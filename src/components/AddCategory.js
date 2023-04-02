@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+
 
 /**
  * desestructuramos lo que viene en las propertis, 
@@ -6,11 +8,14 @@ import React, { useState } from 'react'
  * es la funcion setCategorias encargada de mudar el estado del arreglo
  * categorias.  
  * -) categ lo que trae es el arreglo, el cual pasara por diferentes estados.
- *  
+ * Si no deseamos desestructurar las propertis 
+ * (ejemplo: export const AddCategory = ( props ) => {...} )
+ * entonces tendriamos que hacer como sigue a la hora de insertar una categoria:
+ *  props.setCateg( new_categ  => [...new_categ, inputValue] );
  */
 export const AddCategory = ({ setCateg, categ }) => {
     //En useSatate() puede haber un string, arreglo o objeto, etc
-    const [inputValue, setInputValue] = useState('Hola Mundo');
+    const [inputValue, setInputValue] = useState('');
     
     const handleInputChange = (evento) => {
         setInputValue(evento.target.value);
@@ -23,10 +28,13 @@ export const AddCategory = ({ setCateg, categ }) => {
          * (categorias) es el valor del estado anterior y regresa (=>) el nuevo estado
          * ([ ...categorias, inputValue ]) que lo que hace es agregar el valor de la
          * variable inputValue al final del arreglo "categorias"
-         */ 
-        //Pudier ser asi tambien:
-        setCateg([ ...categ, inputValue ]) 
-        //setCateg( categorias => [ ...categorias, inputValue ]);
+         */         
+        if ( inputValue.trim().length > 2 ) {
+            //Puede ser asi tambien:
+            setCateg( categorias => [ ...categorias, inputValue ]);
+            //setCateg([...categ, inputValue]);
+            setInputValue(''); 
+        }       
     };
    
     return (
@@ -38,4 +46,9 @@ export const AddCategory = ({ setCateg, categ }) => {
             />
         </form>
   );
+};
+
+AddCategory.propTypes = {
+    setCateg: PropTypes.func.isRequired,
+    categ: PropTypes.array.isRequired
 };
