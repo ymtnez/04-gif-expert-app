@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { AddCategory } from './components/AddCategory';
+import { GifGrid } from './components/GifGrid';
 
 export const GifExpertApp = () => {
-    // const categorias = ['One Punch', 'Samurai X', 'Dragon Ball'];
+    
     /**
      * Aqui usamos el hook de useState el cual nos permitira a traves de setCategorias
      * (es una funcion) insertar categorias, o sea, es a traves de setCategorias que
      * cambiaremos el estado a categorias
      */
-    const [categorias, setCategorias] = useState(['One Punch', 'Samurai X', 'Dragon Ball']);
+    const [categorias, setCategorias] = useState(['One Punch']);
    
     // const handleAdd = () => {
     //     /**
@@ -40,9 +41,11 @@ export const GifExpertApp = () => {
                  * del map para referenciar cada elemento, para
                  * ello debe ser la clave que venga de la BD.
                  */
-                categorias.map( (categ, index) => {
-                    return <li key={ index+1 }>{ categ }</li>;
-                })
+                categorias.map( categ => 
+                    <GifGrid
+                        key={ categ }
+                        categ={ categ }/>     
+                )
             }
         </ol>
     </>
