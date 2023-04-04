@@ -29,7 +29,7 @@ export const AddCategory = ({ setCateg, categ }) => {
          * ([ ...categorias, inputValue ]) que lo que hace es agregar el valor de la
          * variable inputValue al final del arreglo "categorias"
          */         
-        if ( inputValue.trim().length > 2 ) {
+        if ( inputValue.trim().length >= 2 ) {
             //Puede ser asi tambien:
             //setCateg( categorias => [ ...categorias, inputValue ]);
             setCateg([...categ, inputValue]);
