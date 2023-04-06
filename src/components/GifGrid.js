@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { getGifs } from '../helpers/getGifs';
 import { GifGridItem } from './GifGridItem';
 
 export const GifGrid = ({ categ }) => {    
@@ -29,41 +30,16 @@ export const GifGrid = ({ categ }) => {
     * Aqui estamos utilizando otro hook (useEffect) para indicarle a React
     * que ejecute getGifs() solo una vez aun si detecta un cambio. Y solo
     * una vez pues en el segundo argumento pasamos el array vacio. 
+    * 
+    * La linea .then( setImages ); se dedujo de:
+    *       .then( imagenes => setImages( imagenes ) ); pues si en una funcion de
+    * callback su primer y unico es igual al argumento que recibe la funcion interna,
+    * entonces podemos reducirla.
     */
     useEffect(() => {
-        getGifs();
-    }, []);
-
-    const getGifs = async() => {
-
-        const apiKey = 'Ns1IgnDyFXIpSxgiZSOj9RTSj4vDOCt3';
-        const url = `https://api.giphy.com/v1/gifs/search?q=Rick+and+Morty&limit=10&api_key=${apiKey}`;
-        
-        const resp     = await fetch(url);
-        const { data } = await resp.json();
-
-        /**
-         * Pudiera ser asi, desestructurando el objeto y accediendo a los atributos que me 
-         * interesan
-                const gifs = data.map( ({id, title, images:{downsized_medium}}) => {...
-         * Utilizo map para obtener un nuevo array de objetos con los atributos que solo me
-         * interesan. Este metodo va a analizar cada elemento del array que viene en data y
-         * como dichos elementos son objetos, entonces vamos a aceder a cada uno de esos
-         * objetos por img. Es decir, map recibe una función que en su argumento tendrá cada
-         * uno de los elementos del array a mapear y a cada uno le aplicará el cuerpo de la
-         * funcion.
-         * 
-         */
-        const gifs = data.map( (img) => {
-            return {
-                id: img.id,
-                title: img.title,
-                url: img.images?.downsized_medium.url //El signo ? es para si vienen las imganes lo utilice
-            }    
-        });
-
-        setImages( gifs );
-    }
+        getGifs( categ )
+            .then( setImages );
+    }, [ categ ]);
    
     return (
         <>
