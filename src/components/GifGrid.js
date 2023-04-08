@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { getGifs } from '../helpers/getGifs';
+import React from 'react'
+import { useFetchGifs } from '../hooks/useFetchGifs'
+//import React, { useEffect, useState } from 'react'
+//import { getGifs } from '../helpers/getGifs';
 import { GifGridItem } from './GifGridItem';
 
 export const GifGrid = ({ categ }) => {    
@@ -24,26 +26,18 @@ export const GifGrid = ({ categ }) => {
     */
     
     //Utilizando el hook useState
-    const [images, setImages] = useState([]);
+    //const [images, setImages] = useState([]);
+
+    const { data_img, loading } = useFetchGifs( categ );
     
-   /**
-    * Aqui estamos utilizando otro hook (useEffect) para indicarle a React
-    * que ejecute getGifs() solo una vez aun si detecta un cambio. Y solo
-    * una vez pues en el segundo argumento pasamos el array vacio. 
-    * 
-    * La linea .then( setImages ); se dedujo de:
-    *       .then( imagenes => setImages( imagenes ) ); pues si en una funcion de
-    * callback su primer y unico es igual al argumento que recibe la funcion interna,
-    * entonces podemos reducirla.
-    */
-    useEffect(() => {
-        getGifs( categ )
-            .then( setImages );
-    }, [ categ ]);
-   
+    console.log( data_img );
+    console.log( loading );
+
     return (
         <>
-            <h3>{ categ }</h3>
+            <h3 className='animate__animated animate__fadeIn'>{ categ }</h3>
+            {/* <h3>{ loading ? 'Done..' : 'Wait...' }</h3> */}
+            { loading && <p className='animate__animated animate__flash'>Cargando...</p> }
             <div className='card-grid'>
                 {/* <ol>
                     {
@@ -60,10 +54,10 @@ export const GifGrid = ({ categ }) => {
                     }
                 </ol> */}
                 {
-                    images.map( (imagen) => (
+                    data_img.map( (imagen) => (
                         <GifGridItem
                             key={imagen.id}
-                            /**
+                            /*
                              * Imagen es un objeto y utilizando el operador spread
                              * podemos hacer {...imagen}, esto nos permite enviar
                              * como properties independientes a cada uno de los 
@@ -74,7 +68,7 @@ export const GifGrid = ({ categ }) => {
                         />
                     ))   
                 } 
-            </div>        
+            </div>
         </>
     )
 }

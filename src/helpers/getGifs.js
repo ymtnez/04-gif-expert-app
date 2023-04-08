@@ -1,9 +1,9 @@
 export const getGifs = async( categ ) => {
-
+    //encodeURI() se utiliza para escapar los espacios en blanco con %20
     const apiKey = 'Ns1IgnDyFXIpSxgiZSOj9RTSj4vDOCt3';
-    const url = `https://api.giphy.com/v1/gifs/search?q=${ encodeURI( categ ) }&limit=10&api_key=${ apiKey }`;
+    const urlApi = `https://api.giphy.com/v1/gifs/search?q=${ encodeURI( categ ) }&limit=10&api_key=${ apiKey }`;
     
-    const resp     = await fetch(url);
+    const resp     = await fetch(urlApi);
     const { data } = await resp.json();
 
     /**
@@ -25,6 +25,6 @@ export const getGifs = async( categ ) => {
             url: img.images?.downsized_medium.url //El signo ? es para si vienen las imganes lo utilice
         }    
     });
-
+    
     return gifs;
 }
