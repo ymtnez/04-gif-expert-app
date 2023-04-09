@@ -44,7 +44,8 @@ export const GifExpertApp = () => {
                 categorias.map( categ => 
                     <GifGrid
                         key={ categ }
-                        categ={ categ }/>     
+                        categ={ categ }
+                    />     
                 )
             }
         </ol>

@@ -10,6 +10,28 @@ export const useFetchGifs = ( categ ) => {
             loading: true
         }
     )
+
+    /**
+     * Si no utilizamos useEffect, entonces por ejemplo en el caso que queramos
+     * utilizar el hook de useState para cambiar el counter mediante el evento
+     * onClick del boton se va ejecutar todo la peticion http, o lo que es lo 
+     * mismo, React detecta un cambio en el componente (cambio el counter) y
+     * vuelve a ejecutar todo el codigo.
+            const [counter, setCounter] = useState(0);
+            .
+            .
+            .
+            return (
+                <div>
+                    <h1>{ counter }</h1>
+                    <button onClick={ () => setCounter( counter + 1 ) }>Click</button>
+                    <h3>{ categ }</h3>  
+                </div>
+    )
+    */
+    
+    //Utilizando el hook useState
+    //const [images, setImages] = useState([]);
     
     /**
     * Aqui estamos utilizando otro hook (useEffect) para indicarle a React
